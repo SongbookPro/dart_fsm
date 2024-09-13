@@ -1,6 +1,7 @@
 name: simple_fsm
 description: "An easy to use finite state machine implementation using enums for states and events."
 version: 0.1.0
+repository: https://github.com/SongbookPro/dart_fsm
 
 environment:
   sdk: ^3.0.0
