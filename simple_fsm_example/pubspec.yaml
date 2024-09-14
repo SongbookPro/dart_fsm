@@ -1,0 +1,16 @@
+name: simple_fsm_example
+description: A simple example of how to use the simple_fsm package.
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: ^3.5.2
+
+# Add regular dependencies here.
+dependencies:
+  simple_fsm: 
+    path: ../
+  logging: ^1.0.0
+
+dev_dependencies:
+  lints: ^4.0.0
