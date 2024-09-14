@@ -23,7 +23,7 @@ enum Event { heat, cool }
 
 final fsm = StateMachine(
   initialState: State.water,
-  transitions: const {
+  transitions: {
     State.water: [
       Transition(State.ice, Event.cool),
       Transition(State.steam, Event.heat),
@@ -33,7 +33,7 @@ final fsm = StateMachine(
       Transition(State.water, Event.heat),
     ],
     State.steam: [
-      Transition(State.water, Event.cool),
+      Transition(State.water, Event.cool, onTransition: () => print('Liquefied')),
     ],
   },
   onEnter: {
@@ -75,11 +75,11 @@ final fsm = FSM(
   initialState: State.water,
   transitions: const {
     State.water: [
-      Tx(State.ice, Event.freeze),
-      Tx(State.steam, Event.boil),
+      Tx(State.ice, Event.cool),
+      Tx(State.steam, Event.heat),
     ],
     State.ice: [
-      Tx(State.water, Event.melt),
+      Tx(State.water, Event.heat),
     ],
   },
 );

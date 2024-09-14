@@ -110,9 +110,8 @@ class StateMachine<State extends Enum, Event extends Enum> {
 
         // Log transition if required
         if (_logger != null) {
-          _logger!.info('[${[
-            event.toString().split('.').last
-          ]}] ${oldState.toString().split('.').last} -> ${transition.state.toString().split('.').last}');
+          _logger!.info(
+              '[${event.toString().split('.').last}] ${oldState.toString().split('.').last} -> ${transition.state.toString().split('.').last}');
         }
 
         _onExit?[_state]?.call();
@@ -124,7 +123,8 @@ class StateMachine<State extends Enum, Event extends Enum> {
 
         transition.onTransition?.call();
 
-        _transitionStream.add(TransitionEvent._(oldState, transition.state, event));
+        _transitionStream
+            .add(TransitionEvent._(oldState, transition.state, event));
         return;
       }
     }
