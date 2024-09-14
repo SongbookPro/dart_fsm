@@ -34,7 +34,7 @@ final fsm = StateMachine(
   },
 );
 
-void run() {
+void main() {
   Logger.root.onRecord.listen((record) {
     print('${record.level.name}: ${record.message}');
   });
