@@ -1,3 +1,4 @@
+import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
 import 'package:simple_fsm/simple_fsm.dart';
@@ -96,6 +97,33 @@ void main() {
 
     expect(fsm.state, State.ice);
     expect(triggered, false);
+
+    fsm.fire(Event.evaporate);
+    expect(fsm.state, State.water);
+
+    await Future.delayed(const Duration(milliseconds: 100));
+    expect(triggered, true);
+  });
+
+  test('Test logger', () async {
+    var triggered = false;
+    final logger = Logger('test');
+
+    final fsm = FSM(
+      logger: logger,
+      initialState: State.ice,
+      transitions: {
+        State.ice: [
+          Tx(State.water, Event.evaporate),
+        ],
+      },
+    );
+
+    logger.onRecord.listen((record) {
+      if (record.message.contains('evaporate')) {
+        triggered = true;
+      }
+    });
 
     fsm.fire(Event.evaporate);
     expect(fsm.state, State.water);
