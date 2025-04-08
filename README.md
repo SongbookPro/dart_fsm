@@ -11,7 +11,9 @@ Supported state machine features:
 
 ## Usage
 
-To get started create an instance of `StateMachine` with the initial state and a map of transitions between states. The map of transitions should be a map of state enums to a list of valid `Transition` from that state.
+To get started create an instance of `StateMachine<S, E>` with the initial state and a map of transitions between states. The map of transitions should be a map of state enums to a list of valid `Transition` from that state. 
+
+When declaring an instance of `StateMachine` (or `FSM`), the type of the state and event enums must be explicitly specified in the generic type arguments (i.e. `StateMachine<State, Event>`). Failing to do so will reduce the compilers ability to validate the use of the state and event enums at compile time.
 
 Then call `fire` on the `StateMachine` instance to transition to the next state.
 
@@ -21,7 +23,7 @@ import 'package:simple_fsm/simple_fsm.dart';
 enum State { water, ice, steam }
 enum Event { heat, cool }
 
-final fsm = StateMachine(
+final fsm = StateMachine<State, Event>(
   initialState: State.water,
   transitions: {
     State.water: [
@@ -71,7 +73,7 @@ typedef Tx = Transition;
 This will allow you to write the following:
 
 ```dart
-final fsm = FSM(
+final fsm = FSM<State, Event>(
   initialState: State.water,
   transitions: const {
     State.water: [

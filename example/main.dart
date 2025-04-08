@@ -9,7 +9,7 @@ enum Event { heat, cool }
 
 int currentTemp = 0;
 
-final fsm = StateMachine(
+final fsm = StateMachine<State, Event>(
   initialState: State.water,
   logger: logger,
   transitions: {
@@ -22,8 +22,7 @@ final fsm = StateMachine(
       Transition(State.water, Event.heat),
     ],
     State.steam: [
-      Transition(State.water, Event.cool,
-          onTransition: () => logger.info('Liquefied')),
+      Transition(State.water, Event.cool, onTransition: () => logger.info('Liquefied')),
     ],
   },
   onEnter: {

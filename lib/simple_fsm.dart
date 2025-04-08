@@ -6,10 +6,10 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 
 /// A shorthand version of [Transition].
-typedef Tx<State extends Enum, Event extends Enum> = Transition;
+typedef Tx<State extends Enum, Event extends Enum> = Transition<State, Event>;
 
 /// A shorthand version of [StateMachine].
-typedef FSM<State extends Enum, Event extends Enum> = StateMachine;
+typedef FSM<State extends Enum, Event extends Enum> = StateMachine<State, Event>;
 
 /// Represents a transition to a new state.
 class Transition<State extends Enum, Event extends Enum> {
@@ -50,7 +50,7 @@ class StateMachine<State extends Enum, Event extends Enum> {
   final Map<State, void Function()>? _onExit;
   final Logger? _logger;
 
-  final _transitionStream = StreamController<TransitionEvent>.broadcast();
+  final _transitionStream = StreamController<TransitionEvent<State, Event>>.broadcast();
 
   State _state;
 
@@ -90,7 +90,7 @@ class StateMachine<State extends Enum, Event extends Enum> {
   State get state => _state;
 
   /// A stream of [TransitionEvent] that are emitted when a transition occurs.
-  Stream<TransitionEvent> get onTransition => _transitionStream.stream;
+  Stream<TransitionEvent<State, Event>> get onTransition => _transitionStream.stream;
 
   /// Fires the given [event] and transitions to the next state if applicable.
   void fire(Event event) {
@@ -123,8 +123,7 @@ class StateMachine<State extends Enum, Event extends Enum> {
 
         transition.onTransition?.call();
 
-        _transitionStream
-            .add(TransitionEvent._(oldState, transition.state, event));
+        _transitionStream.add(TransitionEvent._(oldState, transition.state, event));
         return;
       }
     }
