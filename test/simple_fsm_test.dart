@@ -9,7 +9,7 @@ enum Event { freeze, melt, evaporate, condense }
 
 void main() {
   test('Simple transitions work', () {
-    final fsm = FSM(
+    final fsm = FSM<State, Event>(
       initialState: State.water,
       transitions: const {
         State.steam: [
@@ -38,7 +38,7 @@ void main() {
   });
 
   test('Test guard function', () {
-    final fsm = FSM(
+    final fsm = FSM<State, Event>(
       initialState: State.ice,
       transitions: {
         State.ice: [
@@ -57,7 +57,7 @@ void main() {
   test('Test callback function', () {
     var triggered = false;
 
-    final fsm = FSM(
+    final fsm = FSM<State, Event>(
       initialState: State.ice,
       transitions: {
         State.ice: [
@@ -79,7 +79,7 @@ void main() {
   test('Test transition stream', () async {
     var triggered = false;
 
-    final fsm = FSM(
+    final fsm = FSM<State, Event>(
       initialState: State.ice,
       transitions: const {
         State.ice: [
@@ -109,7 +109,7 @@ void main() {
     var triggered = false;
     final logger = Logger('test');
 
-    final fsm = FSM(
+    final fsm = FSM<State, Event>(
       logger: logger,
       initialState: State.ice,
       transitions: {

@@ -9,7 +9,7 @@ enum Event { heat, cool }
 
 int currentTemp = 0;
 
-final fsm = StateMachine(
+final fsm = StateMachine<State, Event>(
   initialState: State.water,
   logger: logger,
   transitions: {
