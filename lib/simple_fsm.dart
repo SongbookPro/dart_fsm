@@ -1,6 +1,3 @@
-/// A finite state machine implementation which uses enums for states and events.
-library simple_fsm;
-
 import 'dart:async';
 
 import 'package:logging/logging.dart';
