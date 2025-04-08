@@ -22,7 +22,8 @@ final fsm = StateMachine<State, Event>(
       Transition(State.water, Event.heat),
     ],
     State.steam: [
-      Transition(State.water, Event.cool, onTransition: () => logger.info('Liquefied')),
+      Transition(State.water, Event.cool,
+          onTransition: () => logger.info('Liquefied')),
     ],
   },
   onEnter: {
