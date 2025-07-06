@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Bumped to 1.0.0 now API has been stable for a while
+
 ## 0.3.0
 
 - Improve type strictness of state/event enums
